@@ -384,6 +384,9 @@
         .img-regalo {
             width: 80px;
         }
+        .img-amazon {
+            width: 200px;
+        }
         
         .regalo-text {
             margin-top: 20px;
@@ -586,7 +589,7 @@
             </div>
         </div>
     </div>
-    <section class="section sec3">
+    {{-- <section class="section sec3">
         <div class="grid grid-cols-1 gap-1" style="margin-top: 20px;">
             <p class="gallery-text">
                 Galeria de Fotos
@@ -625,9 +628,9 @@
                 </span>
             </button>
         </div>
-    </section>
-    <div class="img3" style="text-align: -webkit-center;">
-        <div class="grid grid-cols-1 md:grid-cols-2">
+    </section> --}}
+    <div class="img3" style="text-align: -webkit-center;background-color: #282e34;padding-top: 100px;padding-bottom: 100px;">
+        <div class="grid grid-cols-1 md:grid-cols-3">
             <div>
                 <div data-aos="flip-left" data-aos-duration="1000" class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <p>
@@ -650,13 +653,32 @@
                         Gift money
                     </p>
                     <p style='font-family: "Handlee", cursive;'>
-                        <strong>BBVA</strong>
+                        <strong>Santander</strong>
                     </p>
                     <p style='font-family: "Handlee", cursive;'>
                         Yareli Valdez Moreno
                     </p>
                     <p style='font-family: "Handlee", cursive;'>
                         Clabe: 83274283974239847389274
+                    </p>
+                </div>
+            </div>
+            <div>
+                <div data-aos="flip-right" data-aos-duration="1000" class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 money">
+                    <p>
+                        <img class="img-amazon" src="{{URL::asset('/img/amazon.png')}}" alt="">
+                    </p>
+                    <p class="regalo-text">
+                        Mesa de regalos
+                    </p>
+                    <p style='font-family: "Handlee", cursive;'>
+                        <strong>AMAZON</strong>
+                    </p>
+                    <p style='font-family: "Handlee", cursive;'>
+                        <br>
+                    </p>
+                    <p style='font-family: "Handlee", cursive;' class="text-xl font-bold">
+                        <a target="_blank" href="https://www.amazon.com.mx/registries/gl/guest-view/31TC71CU16FY6">CLICK AQUÍ</a>
                     </p>
                 </div>
             </div>
@@ -702,13 +724,6 @@
             </div>
         </div>
     </section>
-    {{-- <div class="img1">
-        <div class="txt">
-            <span class="border">
-                --Text--
-            </span>
-        </div>
-    </div> --}}
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
