@@ -28,6 +28,24 @@ class CodeController extends Controller
         return response()->json($data);
     }
 
+    public function codes()
+    {
+        $codes = Codes::get();
+
+        $data = [];
+
+        foreach ($codes as $code) {
+            $a = [
+                $code->code,
+                ($code->in_use == true) ? "No" : "Si"
+            ];
+
+            array_push($data, $a);
+        }
+
+        return response()->json($data);
+    }
+
     public function store(Request $request)
     {
         $code = $request->code;

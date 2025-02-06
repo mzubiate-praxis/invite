@@ -28,19 +28,12 @@
                         Código
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nombre
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Asistentes
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Fecha de confirmación
+                        Activo
                     </th>
                 </tr>
             </thead>
         </table>
     </div>
-    
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -54,7 +47,7 @@
         $(document).ready(function() {
             $.ajax({
                 type: "get",
-                url: "{{route('store.index')}}",
+                url: "{{route('store.show')}}",
                 success: function (dataSet) {
                     var myTable;
 
