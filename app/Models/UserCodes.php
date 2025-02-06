@@ -15,4 +15,8 @@ class UserCodes extends Model
         'name',
         'assistents'
     ];
+
+    public function code() {
+        return $this->hasOne(Codes::class, 'id', 'code_id');
+    }
 }

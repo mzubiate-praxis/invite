@@ -10,7 +10,22 @@ class CodeController extends Controller
 {
     public function index()
     {
+        $userCodes = UserCodes::get();
 
+        $data = [];
+
+        foreach ($userCodes as $userCode) {
+            $a = [
+                $userCode->code->code,
+                $userCode->name,
+                $userCode->assistents,
+                date('d-m-Y', strtotime($userCode->created_at))
+            ];
+
+            array_push($data, $a);
+        }
+
+        return response()->json($data);
     }
 
     public function store(Request $request)
