@@ -656,7 +656,7 @@
                         <strong>Santander</strong>
                     </p>
                     <p style='font-family: "Handlee", cursive;'>
-                        Yareli Valdez Moreno
+                        Karen Moreno Ávila
                     </p>
                     <p style='font-family: "Handlee", cursive;'>
                         Clabe: 83274283974239847389274
@@ -702,22 +702,22 @@
                     <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white label-code">
                         Código de Invitado
                     </label>
-                    <input type="text" class="input-code block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 text-center">
+                    <input id="code" type="text" class="input-code block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 text-center">
                 </div>
                 <div style="margin-top: 20px;">
-                    <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white label-code">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white label-code">
                         Nombre Completo
                     </label>
-                    <input type="text" id="default-input" class="text-center input-normal bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                    <input type="text" id="name" class="text-center input-normal bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                 </div>
                 <div style="margin-top: 10px;">
-                    <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white label-code">
+                    <label for="assists" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white label-code">
                         Número de Asistentes
                     </label>
-                    <input type="number" id="default-input" class="text-center input-normal bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                    <input value="0" type="number" id="assists" class="text-center input-normal bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
                 </div>
                 <div style="margin-top: 15px;">
-                    <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    <button id="save" type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                         <strong>Enviar</strong>
                     </button>
                 </div>
@@ -727,6 +727,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         AOS.init();
     </script>
@@ -780,6 +785,54 @@
       updateCountdown();
       // Refresh every second
       setInterval(updateCountdown, MILLISECONDS_OF_A_SECOND);
+    });
+
+    $("#save").click(function (e) {
+        e.preventDefault();
+        var code = $('#code').val();
+        var name = $('#name').val();
+        var assists = $('#assists').val();
+
+        if (code == '' || name == '' || assists == '' || assists == 0) {
+            Swal.fire({
+                title: 'Campos incompletos',
+                text: 'Debes llenar todos los campos del formulario',
+                icon: 'error',
+                confirmButtonText: 'Cerrar'
+            });
+        } else {
+            var token = '{{csrf_token()}}';
+            var data={
+                code:code,
+                name:name,
+                assists:assists,
+                _token:token
+            };
+    
+            $.ajax({
+                type: "post",
+                url: "{{route('store.code')}}",
+                data: data,
+                success: function (data) {
+                    if(data.status) {
+                        Swal.fire({
+                            title: '¡Gracias por tu confirmación!',
+                            text: 'Te esperamos en el evento',
+                            icon: 'success',
+                            confirmButtonText: 'Cerrar'
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Lo sentimos',
+                            text: 'El código no existe o ya se encuentra en uso',
+                            icon: 'error',
+                            confirmButtonText: 'Cerrar'
+                        });
+                    }
+                }
+            });
+        }
+
     });
   </script>
 </html>
